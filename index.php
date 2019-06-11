@@ -13,6 +13,13 @@ $password = $_POST['password'];
 $loginValid = 'Moi';
 $passwordValid = 'Moi';
 $color = $_POST['color'];
+//if(isset($color)&&$color==rouge){
+//    
+//}elseif(isset($color)&&$color==bleu){
+//    
+//}elseif(isset($color)&&$color==noir){
+//    
+//}
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
@@ -30,83 +37,87 @@ $color = $_POST['color'];
     </head>
 
     <body>    
-        <?php if (isset($_POST['login']) && isset($_POST['password'])) {
+        <?php
+        if (isset($_POST['login']) && isset($_POST['password'])) {
             if ($loginValid == $_POST['login'] && $passwordValid == $_POST['password']) {
                 ?>
+            <div class="row">
 
-
-
-
-                <div class="row">
-                    <div class="col s3"> 
+                    <div class="col s4"> 
                         <?php
                         echo '<ul>';
                         foreach ($rssSecurity->channel->item as $item) {
-                            ?><p><?php
-                             echo $item->enclosure;
-                                echo $item->title;
-                                
-                                echo $item->guid;
-                                echo $item->description;
-                                ?></p><?php
                             $datetime = date_create($item->pubDate);
                             $date = date_format($datetime, strftime('%A %d %B %Y.'));
-                            echo '<li><a href="' . utf8_decode($item->link) . '">' . utf8_decode($item->title) . '</a> (' . $date . ')</li>';
-                        }
-                        echo '</ul>';
-                        ?>
-                    </div>
-                    <div class="col s3">
-                        <?php
-                        echo '<ul>';
-                        foreach ($rssAppli->channel->item as $item) {?>
+                            ?>
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
+                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
+                                    <p><?php echo $date ?><br>
+                                        <?php echo $item->description; ?> 
+                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
+                                    </p>
 
-<p><?php
-                             echo $item->enclosure{'url'};
-                                echo $item->title;
-                                
-                                echo $item->guid;
-                                echo $item->description;
-                                ?></p><?php
-                           
-                            $datetime = date_create($item->pubDate);
-                            $date = date_format($datetime, 'd M Y, H\hi');
-                            echo '<li><a href="' . $item->link . '">' . utf8_decode($item->title) . '</a> (' . $date . ')</li>';
+                                </li></ul>
+
+                            ?></p><?php
                         }
-                        echo '</ul>';
                         ?>
                     </div>
-                    <div class="col s3">
-                        <?php
-                        echo '<ul>';
-                        foreach ($rssCulture->channel->item as $item) {?>
-                          <ul class="collection">
-    <li class="collection-item avatar">
-      <img src="<?php   echo $item->enclosure{'url'};?>" alt="" class="circle">
-      <span class="title"><?php echo $item->title;?></span>
-      <p><?php echo $date ?><br>
-         
-      </p>
-       <a href="<?php echo$item->link;?>" class="secondary-content"><i class="material-icons">grade</i></a>
-    </li></ul>
+                    <div class="col s4">
+        <?php
+        echo '<ul>';
+        foreach ($rssAppli->channel->item as $item) {
+            ?>
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
+                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
+                                    <p><?php echo $date ?><br>
+            <?php echo $item->description; ?> 
+                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
+                                    </p>
+
+                                </li></ul>
                             <p><?php
-                       
-                                echo $item->description;
-                                ?></p><?php
-                             $datetime = date_create($item->pubDate);
-                            $datetime = date_create($item->pubDate);
-                            $date = date_format($datetime, 'd M Y, H\hi');
-                            echo '<li><a href="' . $item->link . '">' . utf8_decode($item->title) . '</a> (' . $date . ')</li>';
-                        }
-                        echo '</ul>';
-                        ?>
+            $datetime = date_create($item->pubDate);
+            $date = date_format($datetime, 'd M Y, H\hi');
+        }
+        ?>
+                    </div>
+                    <div class="col s4">
+                            <?php
+                            echo '<ul>';
+                            foreach ($rssCulture->channel->item as $item) {
+                                $datetime = date_create($item->pubDate);
+                                $datetime = date_create($item->pubDate);
+                                $date = date_format($datetime, 'd M Y, H\hi');
+                                ?>
+                            <ul class="collection">
+                                <li class="collection-item avatar">
+                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
+                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
+                                    <p><?php echo $date ?><br>
+            <?php echo $item->description; ?> 
+                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
+                                    </p>
+
+                                </li></ul>
+
+
+
+
+
+        <?php }
+        ?>
                     </div>
                 </div><?php
-            } else {
-                
-            }
-        } else {
-            ?>
+                    } else {
+                        
+                    }
+                } else {
+                    ?>
             <form method="post" action="index.php">
                 <label for="login">Login :</label><input id="login" name="login" type="text" />
                 <label for="password">Mot de passe :</label><input name="password" type="password" />
@@ -127,15 +138,27 @@ $color = $_POST['color'];
 
                 <div><input  type="submit" value="Valider"/></div>
             </form> 
-            <?php
-        }
-        ?> 
+    <?php
+}
+?> 
 
 
 
 
 
-
+        <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="images/office.jpg">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                <p><a href="#">This is a link</a></p>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                <p>Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+        </div>
 
 
 
