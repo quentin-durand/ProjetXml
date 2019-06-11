@@ -1,3 +1,12 @@
+
+<?php
+$security = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
+$rssSecurity = simplexml_load_file($security);
+$appli = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
+$rssAppli = simplexml_load_file($appli);
+$culture = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
+$rssCulture = simplexml_load_file($culture);
+?>
 <!DOCTYPE html>
  <html lang="fr" dir="ltr">
  <head>
@@ -16,7 +25,37 @@
 
   <body>
 
-
+      <div class="row"><div class="col-3"><?php
+echo '<ul>';
+foreach ($rssSecurity->channel->item as $item){
+ $datetime = date_create($item->pubDate);
+ $date = date_format($datetime, 'd M Y, H\hi');
+ echo '<li><a href="'.$item->link.'">'.utf8_decode($item->title).'</a> ('.$date.')</li>';
+}
+echo '</ul>';?>
+              </div>
+          <div class="col-3">
+              <?php
+echo '<ul>';
+foreach ($rssAppli->channel->item as $item){
+ $datetime = date_create($item->pubDate);
+ $date = date_format($datetime, 'd M Y, H\hi');
+ echo '<li><a href="'.$item->link.'">'.utf8_decode($item->title).'</a> ('.$date.')</li>';
+}
+echo '</ul>';?>
+          </div>
+          <div class="col-3">
+              <?php
+echo '<ul>';
+foreach ($rssCulture->channel->item as $item){
+ $datetime = date_create($item->pubDate);
+ $date = date_format($datetime, 'd M Y, H\hi');
+ echo '<li><a href="'.$item->link.'">'.utf8_decode($item->title).'</a> ('.$date.')</li>';
+}
+echo '</ul>';?>
+          </div>
+</div>
+?>
 
 
 
