@@ -1,5 +1,5 @@
  <?php 
-if (!count($_GET)) {
+if (!count($_GET)||isset($_GET['/0'])) {
         foreach($rssSecurity->channel->item as $item){
 
 ?>

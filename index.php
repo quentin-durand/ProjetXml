@@ -3,6 +3,10 @@ session_start();
 if(isset($_POST['number'])) {
 setcookie('number',$_POST['number'],time()+360,'/','ProjetXml',false,true);
 }
+if(isset($_POST['login'])) {
+setcookie('login',$_POST['login'],time()+360,'/','ProjetXml',false,true);
+}
+
 setlocale(LC_TIME, 'fr', 'fr_FR.UTF8');
 
 $security = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
@@ -11,13 +15,13 @@ $appli = "https://www.01net.com/rss/actualites/applis-logiciels/"; /* insérer i
 $rssAppli = simplexml_load_file(utf8_decode($appli));
 $culture = "https://www.01net.com/rss/actualites/culture-medias/"; /* insérer ici l'adresse du flux RSS de votre choix */
 $rssCulture = simplexml_load_file($culture);
-$login = $_POST['login'];
+
 $password = $_POST['password'];
 $loginValid = 'Moi';
 $passwordValid = 'Moi';
 $color = $_POST['color'];
-$page=[0,1,2];
-
+$page=[0,1,2,3];
+$numberItem=0;
 //if(isset($color)&&$color==rouge){
 //    
 //}elseif(isset($color)&&$color==bleu){
@@ -122,7 +126,7 @@ $page=[0,1,2];
             <?php
           
             if (!count($_GET)) {
-              
+                require_once('index.php');
             }
             if (isset($_GET['/0'])) {
                  require_once('index.php');

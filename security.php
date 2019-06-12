@@ -1,7 +1,7 @@
         <?php
-      if (!count($_GET)) {
+      if (!count($_GET)||isset($_GET['/0'])) {
         foreach($rssSecurity->channel->item as $item){
-            
+            $numberItem++;
                           
                             $datetime = date_create($item->pubDate);
                             $date = date_format($datetime, strftime('%A %d %B %Y.'));
@@ -11,10 +11,10 @@
                                     <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
                                     <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
                                     <p><?php echo $date ?><br></p>
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Modal</a>
 
                                         <!-- Modal Structure -->
-                                    <div id="modal1" class="modal">
+                                    <div id="modal<?php echo $numberItem ?>" class="modal">
                                         <div class="modal-content">
                                             <h4>Modal Header</h4>
                                             <p><?php echo $item->description; ?></p>
@@ -44,10 +44,10 @@
                                     <img src="<?php echo $rssSecurity->channel->item[$article]->enclosure{'url'}; ?>" alt="" class="circle">
                                     <span class="title <?php echo $color; ?>"><?php echo $rssSecurity->channel->item[$article]->title; ?></span>
                                     <p><?php echo $date ?><br></p>
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $article ?>">Modal</a>
 
                                         <!-- Modal Structure -->
-                                    <div id="modal1" class="modal">
+                                    <div id="modal<?php echo $article ?>" class="modal">
                                         <div class="modal-content">
                                             <h4>Modal Header</h4>
                                             <p><?php echo $rssSecurity->channel->item[$article]->description; ?></p>
