@@ -48,7 +48,7 @@ $page=[0,1,2];
 
                     <div class="nav-wrapper grey darken-4">
                         <ul class="hide-on-med-and-down menuAccueil">
-                            <li><a href="index.php">Accueil</a></li>
+                            <li><a href="/page=<?php echo $page[0] ?>.html">Accueil</a></li>
                              <li><img src="logo.png" /></li>
                         </ul>
                         <!-- Logo -->
@@ -57,9 +57,9 @@ $page=[0,1,2];
                         <!-- MENU -->
                         <ul class="hide-on-med-and-down menuText">
                            
-                            <li><a href="/page=<?php echo $page[0] ?>.html" class="">Sécurité</a></li>
-                            <li><a href="/page=<?php echo $page[1] ?>.html">Application</a></li>
-                            <li><a href="/page=<?php echo $page[2] ?>.html" class="">Autre</a></li>
+                            <li><a href="/page=<?php echo $page[1] ?>.html" class="">Sécurité</a></li>
+                            <li><a href="/page=<?php echo $page[2] ?>.html">Application</a></li>
+                            <li><a href="/page=<?php echo $page[3] ?>.html" class="">Autre</a></li>
                         </ul> 
                         <!-- LOGIN -->
                         <ul class="hide-on-med-and-down right">
@@ -122,20 +122,25 @@ $page=[0,1,2];
             <?php
           
             if (!count($_GET)) {
-                require_once('index.php');
+              
             }
             if (isset($_GET['/0'])) {
-                require_once('security.php');
+                 require_once('index.php');
             } else {
                 
             }
             if (isset($_GET['/1'])) {
-
-                require_once('appli.php');
+ require_once('security.php');
+              
             } else {
                 
             }
             if (isset($_GET['/2'])) {
+                require_once('appli.php');
+            } else {
+                
+            }
+                 if (isset($_GET['/3'])) {
                 require_once('culture.php');
             } else {
                 
