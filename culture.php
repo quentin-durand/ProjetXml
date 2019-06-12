@@ -9,12 +9,12 @@
                                     <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
                                     <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
                                     <p><?php echo $date ?><br>
-                                                                     <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Modal</a>
+                                                                     <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Description</a>
 
                                         <!-- Modal Structure -->
                                     <div id="modal<?php echo $numberItem ?>" class="modal">
                                         <div class="modal-content">
-                                            <h4>Modal Header</h4>
+                                            <h4><?php echo $item->title; ?></h4>
                                             <p><?php echo $item->description; ?></p>
                                         </div>
                                         <div class="modal-footer">

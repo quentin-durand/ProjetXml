@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if(isset($_POST['number'])) {
 setcookie('number',$_POST['number'],time()+360,'/','ProjetXml',false,true);
@@ -9,7 +10,12 @@ setcookie('login',$_POST['login'],time()+360,'/','ProjetXml',false,true);
 if(isset($_POST['password'])) {
 setcookie('password',$_POST['password'],time()+360,'/','ProjetXml',false,true);
 }
-
+if(isset($_POST['color'])) {
+setcookie('color',$_POST['color'],time()+360,'/','ProjetXml',false,true);
+}
+if(COUNT($_POST)===4){
+    header('Location: index.php');
+}
 setlocale(LC_TIME, 'fr', 'fr_FR.UTF8');
 
 $security = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
@@ -20,9 +26,12 @@ $culture = "https://www.01net.com/rss/actualites/culture-medias/"; /* insérer i
 $rssCulture = simplexml_load_file($culture);
 
 $password = $_POST['password'];
-$loginValid = 'Moi';
-$passwordValid = 'Moi';
-$color = $_POST['color'];
+$deconnexion=$_POST['deconnexion'];
+if(!empty($deconnexion)){
+    session_abort();
+       header('Location: index.php');
+}
+
 $page=[0,1,2,3];
 $numberItem=0;
 //if(isset($color)&&$color==rouge){
@@ -32,6 +41,8 @@ $numberItem=0;
 //}elseif(isset($color)&&$color==noir){
 //    
 //}
+ 
+
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
@@ -51,7 +62,7 @@ $numberItem=0;
      
         <!-- **** NAVBAR ****-->
         <div class="navbar-fixed">
-            <nav>
+            <nav class="text-black">
                
 
                     <div class="nav-wrapper grey darken-4">
@@ -67,7 +78,7 @@ $numberItem=0;
                            
                             <li><a href="/page=<?php echo $page[1] ?>.html" class="">Sécurité</a></li>
                             <li><a href="/page=<?php echo $page[2] ?>.html">Application</a></li>
-                            <li><a href="/page=<?php echo $page[3] ?>.html" class="">Autre</a></li>
+                            <li><a href="/page=<?php echo $page[3] ?>.html" class="">Culture et Média</a></li>
                         </ul> 
                         <!-- LOGIN -->
                         <ul class="hide-on-med-and-down right">
@@ -109,19 +120,115 @@ $numberItem=0;
                     </label></div>
 
 
+                    <div></div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Fermer</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat"><input name="deconnexion" type="submit" value="Se déconnecter"/></a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat"><input  type="submit" value="Valider"/></a>
+    </div>
+                      </form> 
+
+  </div>
+                            </li>
+                            <li> </li>
+                                        
+                                        
+                            <li><a href="#modalRegister" class="menuLogin modal-trigger"><i class="material-icons left">lock</i>S'enregistrer</a>
+                    
+                      
+                                    
+                                  <!-- Modal Trigger -->
+<!--  <a class="waves-effect waves-light btn modal-trigger" >Modal</a>-->
+
+  <!-- Modal Structure -->
+  <div id="modalRegister" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+         <form method="post" action="index.php">
+                    <label for="login">Login :</label><input id="login" name="login" type="text" />
+                    <label for="password">Mot de passe :</label><input name="password" type="password" />
+                    <label>
+                        <input name="color" type="checkbox" value="rouge" />
+                        <span>Rouge</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="bleu" />
+                        <span>Bleu</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="noir" />
+                        <span>Noir</span>
+                    </label>
+                 
+                    <div> <label><input name="number" type="checkbox" value="3"/>
+                        <span>3</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="5"/>
+                        <span>5</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="8" />
+                        <span>8</span>
+                    </label></div>
+
+
                     <div><input  type="submit" value="Valider"/></div>
                 </form> 
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
     </div>
-  </div>
+  </div>     
+                            </li><li>
+                            <a href="#settings" class="menuLogin modal-trigger">Paramètre</a>
+                    
+                      
+                                    
+                                  <!-- Modal Trigger -->
+<!--  <a class="waves-effect waves-light btn modal-trigger" >Modal</a>-->
+
+  <!-- Modal Structure -->
+  <div id="settings" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4 class=" text-black">Modal Header</h4>
+         <form method="post" action="index.php">
+             <p class="text-black">changer de couleur</p>
+                    <label>
+                        <input name="color" type="checkbox" value="rouge" />
+                        <span>Rouge</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="bleu" />
+                        <span>Bleu</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="noir" />
+                        <span>Noir</span>
+                    </label>
+                 
+                    <div> <label><input name="number" type="checkbox" value="3"/>
+                        <span>3</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="5"/>
+                        <span>5</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="8" />
+                        <span>8</span>
+                    </label></div>
+
+
+                    <div><input  type="submit" value="Modifier"/></div>
+                </form> 
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Valider</a>
+    </div>
+  </div>  
                             </li>
-                                        
-                                        
-                            <li><a href="badges.html" class="menuLogin"><i class="material-icons left">lock</i>S'enregistrer</a>
-                            
-                       </li>
                         </ul>
                     </div>
                     
@@ -159,7 +266,7 @@ $numberItem=0;
 
     <?php
     if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) {
-        if ($loginValid == $_COOKIE['login'] && $passwordValid == $_COOKIE['password']) {
+     
            if(!count($_GET)||isset($_GET['/0'])){ ?>
                     <div class="row">
 
@@ -182,7 +289,7 @@ $numberItem=0;
             ?>
           
         <?php
-    }}
+    }
     ?> 
 
 

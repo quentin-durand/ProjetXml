@@ -4,19 +4,19 @@
             $numberItem++;
                           
                             $datetime = date_create($item->pubDate);
-                            $date = date_format($datetime, strftime('%A %d %B %Y.'));
+                              $date = date_format($datetime, 'd M Y, H\hi');
                             ?>
                             <ul class="collection">
                                 <li class="collection-item avatar">
                                     <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
-                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
+                                    <span class="title <?php echo $_COOKIE['color']; ?>"><?php echo $item->title; ?></span>
                                     <p><?php echo $date ?><br></p>
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Modal</a>
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Description</a>
 
                                         <!-- Modal Structure -->
                                     <div id="modal<?php echo $numberItem ?>" class="modal">
                                         <div class="modal-content">
-                                            <h4>Modal Header</h4>
+                                            <h4><?php echo $item->title; ?></h4>
                                             <p><?php echo $item->description; ?></p>
                                         </div>
                                         <div class="modal-footer">
@@ -44,12 +44,12 @@
                                     <img src="<?php echo $rssSecurity->channel->item[$article]->enclosure{'url'}; ?>" alt="" class="circle">
                                     <span class="title <?php echo $color; ?>"><?php echo $rssSecurity->channel->item[$article]->title; ?></span>
                                     <p><?php echo $date ?><br></p>
-                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $article ?>">Modal</a>
+                                        <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $article ?>">Description</a>
 
                                         <!-- Modal Structure -->
                                     <div id="modal<?php echo $article ?>" class="modal">
                                         <div class="modal-content">
-                                            <h4>Modal Header</h4>
+                                            <h4><?php echo $rssSecurity->channel->item[$article]->title; ?></h4>
                                             <p><?php echo $rssSecurity->channel->item[$article]->description; ?></p>
                                         </div>
                                         <div class="modal-footer">
