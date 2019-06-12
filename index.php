@@ -6,6 +6,9 @@ setcookie('number',$_POST['number'],time()+360,'/','ProjetXml',false,true);
 if(isset($_POST['login'])) {
 setcookie('login',$_POST['login'],time()+360,'/','ProjetXml',false,true);
 }
+if(isset($_POST['password'])) {
+setcookie('password',$_POST['password'],time()+360,'/','ProjetXml',false,true);
+}
 
 setlocale(LC_TIME, 'fr', 'fr_FR.UTF8');
 
@@ -45,6 +48,7 @@ $numberItem=0;
     </head>
 
     <body class="">   
+     
         <!-- **** NAVBAR ****-->
         <div class="navbar-fixed">
             <nav>
@@ -154,9 +158,9 @@ $numberItem=0;
 
 
     <?php
-    if (isset($_POST['login']) && isset($_POST['password'])) {
-        if ($loginValid == $_POST['login'] && $passwordValid == $_POST['password']) {
-            ?>
+    if (isset($_COOKIE['login']) && isset($_COOKIE['password'])) {
+        if ($loginValid == $_COOKIE['login'] && $passwordValid == $_COOKIE['password']) {
+           if(!count($_GET)||isset($_GET['/0'])){ ?>
                     <div class="row">
 
                         <div class="col s4"> <?php
@@ -174,11 +178,11 @@ $numberItem=0;
             } else {
                 
             }
-        } else {
+        } else {echo 'veuillez vous connecter';
             ?>
           
         <?php
-    }
+    }}
     ?> 
 
 

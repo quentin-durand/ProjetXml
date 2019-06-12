@@ -1,7 +1,7 @@
  <?php 
 if (!count($_GET)||isset($_GET['/0'])) {
-        foreach($rssSecurity->channel->item as $item){
-
+        foreach($rssAppli->channel->item as $item){
+  $numberItem++;
 ?>
                             
                             <ul class="collection">
@@ -9,10 +9,10 @@ if (!count($_GET)||isset($_GET['/0'])) {
                                     <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
                                     <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
                                     <p><?php echo $date ?><br>
-                                                                     <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                                                                     <a class="waves-effect waves-light btn modal-trigger" href="#modal<?php echo $numberItem ?>">Modal</a>
 
                                         <!-- Modal Structure -->
-                                    <div id="modal<?php echo $modal?>" class="modal">
+                                    <div id="modal<?php echo $numberItem ?>" class="modal">
                                         <div class="modal-content">
                                             <h4>Modal Header</h4>
                                             <p><?php echo $item->description; ?></p>
