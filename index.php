@@ -1,5 +1,8 @@
-
 <?php
+session_start();
+if(isset($_POST['number'])) {
+setcookie('number',$_POST['number'],time()+360,'/','ProjetXml',false,true);
+}
 setlocale(LC_TIME, 'fr', 'fr_FR.UTF8');
 
 $security = "https://www.01net.com/rss/actualites/securite/"; /* insérer ici l'adresse du flux RSS de votre choix */
@@ -13,6 +16,8 @@ $password = $_POST['password'];
 $loginValid = 'Moi';
 $passwordValid = 'Moi';
 $color = $_POST['color'];
+$page=[0,1,2];
+
 //if(isset($color)&&$color==rouge){
 //    
 //}elseif(isset($color)&&$color==bleu){
@@ -33,141 +38,179 @@ $color = $_POST['color'];
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <title>Projet Xml</title>
-
     </head>
 
-    <body>    
-        <?php
-        if (isset($_POST['login']) && isset($_POST['password'])) {
-            if ($loginValid == $_POST['login'] && $passwordValid == $_POST['password']) {
-                ?>
-            <div class="row">
+    <body class="">   
+        <!-- **** NAVBAR ****-->
+        <div class="navbar-fixed">
+            <nav>
+               
 
-                    <div class="col s4"> 
-                        <?php
-                        echo '<ul>';
-                        foreach ($rssSecurity->channel->item as $item) {
-                            $datetime = date_create($item->pubDate);
-                            $date = date_format($datetime, strftime('%A %d %B %Y.'));
-                            ?>
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
-                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
-                                    <p><?php echo $date ?><br>
-                                        <?php echo $item->description; ?> 
-                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
-                                    </p>
+                    <div class="nav-wrapper grey darken-4">
+                        <ul class="hide-on-med-and-down menuAccueil">
+                            <li><a href="index.php">Accueil</a></li>
+                             <li><img src="logo.png" /></li>
+                        </ul>
+                        <!-- Logo -->
+                       
+                      
+                        <!-- MENU -->
+                        <ul class="hide-on-med-and-down menuText">
+                           
+                            <li><a href="/page=<?php echo $page[0] ?>.html" class="">Sécurité</a></li>
+                            <li><a href="/page=<?php echo $page[1] ?>.html">Application</a></li>
+                            <li><a href="/page=<?php echo $page[2] ?>.html" class="">Autre</a></li>
+                        </ul> 
+                        <!-- LOGIN -->
+                        <ul class="hide-on-med-and-down right">
+                            <li><a href="#modalLogin" class="menuLogin modal-trigger"><i class="material-icons left">
+                                        account_circle</i>Login</a>
+                                  <!-- Modal Trigger -->
+<!--  <a class="waves-effect waves-light btn modal-trigger" >Modal</a>-->
 
-                                </li></ul>
+  <!-- Modal Structure -->
+  <div id="modalLogin" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+         <form method="post" action="index.php">
+                    <label for="login">Login :</label><input id="login" name="login" type="text" />
+                    <label for="password">Mot de passe :</label><input name="password" type="password" />
+                    <label>
+                        <input name="color" type="checkbox" value="rouge" />
+                        <span>Rouge</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="bleu" />
+                        <span>Bleu</span>
+                    </label>
+                    <label>
+                        <input name="color" type="checkbox" value="noir" />
+                        <span>Noir</span>
+                    </label>
+                 
+                    <div> <label><input name="number" type="checkbox" value="3"/>
+                        <span>3</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="5"/>
+                        <span>5</span>
+                    </label>
+                    <label>
+                        <input name="number" type="checkbox" value="8" />
+                        <span>8</span>
+                    </label></div>
 
-                            ?></p><?php
-                        }
-                        ?>
+
+                    <div><input  type="submit" value="Valider"/></div>
+                </form> 
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+                            </li>
+                                        
+                                        
+                            <li><a href="badges.html" class="menuLogin"><i class="material-icons left">lock</i>S'enregistrer</a>
+                            
+                       </li>
+                        </ul>
                     </div>
-                    <div class="col s4">
-        <?php
-        echo '<ul>';
-        foreach ($rssAppli->channel->item as $item) {
-            ?>
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
-                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
-                                    <p><?php echo $date ?><br>
-            <?php echo $item->description; ?> 
-                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
-                                    </p>
-
-                                </li></ul>
-                            <p><?php
-            $datetime = date_create($item->pubDate);
-            $date = date_format($datetime, 'd M Y, H\hi');
-        }
-        ?>
-                    </div>
-                    <div class="col s4">
-                            <?php
-                            echo '<ul>';
-                            foreach ($rssCulture->channel->item as $item) {
-                                $datetime = date_create($item->pubDate);
-                                $datetime = date_create($item->pubDate);
-                                $date = date_format($datetime, 'd M Y, H\hi');
-                                ?>
-                            <ul class="collection">
-                                <li class="collection-item avatar">
-                                    <img src="<?php echo $item->enclosure{'url'}; ?>" alt="" class="circle">
-                                    <span class="title <?php echo $color; ?>"><?php echo $item->title; ?></span>
-                                    <p><?php echo $date ?><br>
-            <?php echo $item->description; ?> 
-                                        <a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a>
-                                    </p>
-
-                                </li></ul>
-
-
-
-
-
-        <?php }
-        ?>
-                    </div>
-                </div><?php
-                    } else {
-                        
-                    }
-                } else {
-                    ?>
-            <form method="post" action="index.php">
-                <label for="login">Login :</label><input id="login" name="login" type="text" />
-                <label for="password">Mot de passe :</label><input name="password" type="password" />
-                <label>
-                    <input name="color" type="checkbox" value="rouge" />
-                    <span>Rouge</span>
-                </label>
-                <label>
-                    <input name="color" type="checkbox" value="bleu" />
-                    <span>Bleu</span>
-                </label>
-                <label>
-                    <input name="color" type="checkbox" value="noir" />
-                    <span>Noir</span>
-                </label>
-                <input type="number" max="3"/>
-
-
-                <div><input  type="submit" value="Valider"/></div>
-            </form> 
-    <?php
-}
-?> 
-
-
-
-
-
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="images/office.jpg">
+                    
+                </nav>
             </div>
-            <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                <p><a href="#">This is a link</a></p>
+            <?php
+          
+            if (!count($_GET)) {
+                require_once('index.php');
+            }
+            if (isset($_GET['/0'])) {
+                require_once('security.php');
+            } else {
+                
+            }
+            if (isset($_GET['/1'])) {
+
+                require_once('appli.php');
+            } else {
+                
+            }
+            if (isset($_GET['/2'])) {
+                require_once('culture.php');
+            } else {
+                
+            }
+            ?>
+
+
+
+    <?php
+    if (isset($_POST['login']) && isset($_POST['password'])) {
+        if ($loginValid == $_POST['login'] && $passwordValid == $_POST['password']) {
+            ?>
+                    <div class="row">
+
+                        <div class="col s4"> <?php
+            require_once('security.php');
+            ?>
+                        </div>
+                        <div class="col s4">
+                            <?php require_once('appli.php'); ?>
+
+                        </div>
+                        <div class="col s4">
+                            <?php require_once('culture.php'); ?>
+                        </div>
+                    </div><?php
+            } else {
+                
+            }
+        } else {
+            ?>
+          
+        <?php
+    }
+    ?> 
+
+
+
+
+
+<!--            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="<?php echo $item->enclosure{'url'}; ?>">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><?php echo $item->title; ?><i class="material-icons right">more_vert</i></span>
+                    <p><a href="<?php echo utf8_decode($item->link); ?>">lien vers l'article</a></p>
             </div>
             <div class="card-reveal">
                 <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
                 <p>Here is some more information about this product that is only revealed once clicked on.</p>
             </div>
-        </div>
+        </div>-->
 
 
 
+        <div class="separatorNav1"></div>
+        <div class="separatorNav2"></div>
+        <!-- Footer -->
+        <footer>
+            <div class="footer-copyright">
+                <div class="container">
+                    <span class="footerText">© 2019. Quentin / Dorian</span>
+                </div>
+            </div>
+        </footer>
 
 
-
-
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+        ></script>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.js"></script>
+
         <script src="script.js"></script>
+
     </body>
 </html>

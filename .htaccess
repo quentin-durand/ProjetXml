@@ -1,0 +1,16 @@
+#--------------------------------------------------
+# Répertoire : /ProjetPhp/
+#--------------------------------------------------
+
+# Le serveur doit suivre les liens symboliques :
+Options +FollowSymlinks
+
+# Activation du module de réécriture d'URL :
+RewriteEngine On
+
+#--------------------------------------------------
+# Règles de réécriture d'URL :
+#--------------------------------------------------
+
+# Article avec numéro de page :
+RewriteRule ^page=([0-9]+)\.html$ index.php?/$1 [L]
